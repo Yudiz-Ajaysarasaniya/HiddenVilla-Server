@@ -2,16 +2,25 @@
 
 <h1 class="text-danger">Parent Child Component</h1>
 
-<ChildComponent OnClickBtnMethod="ShowMessage" Title="Welcome!">
-    @* render fragment *@
-    <ChildContent> HI Bro!</ChildContent>
-   @*  <NewChildContent> How are you?</NewChildContent> *@
-</ChildComponent>
+<CascadingValue Value="@MessageForGrandChild" Name="MessageFromGrandFromParent">
+    <CascadingValue Value="@Number" Name="NumberFromGrandParent">
+        <ChildComponent OnClickBtnMethod="ShowMessage" Title="Welcome!">
+            @* render fragment *@
+            <ChildContent> HI Bro!</ChildContent>
+            @*  <NewChildContent> How are you?</NewChildContent> *@
+        </ChildComponent>
+    </CascadingValue>
+</CascadingValue>
 
 <p><b>@message</b></p>
 
+<br />
+<SecondComponent placeholder="placeholder default"></SecondComponent>
+
 @code {
     private string message = "";
+    private string MessageForGrandChild = "This is a message from grand parent";
+    private string Number { get; set; } = "36";
 
     private void ShowMessage(MouseEventArgs e)
     {
